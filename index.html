@@ -1,379 +1,917 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gopika C | Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gopika C | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-scroll-behavior:smooth;
-}
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
 
-body{
-background:linear-gradient(135deg,#050816,#0f172a,#1e293b);
-color:white;
-overflow-x:hidden;
-}
+    ::-webkit-scrollbar-track {
+      background: #0a0118;
+    }
 
-header{
-position:fixed;
-top:0;
-width:100%;
-padding:20px 8%;
-display:flex;
-center-content:space-between;
-align-items:center;
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(15px);
-z-index:1000;
-}
+    ::-webkit-scrollbar-thumb {
+      background: #1e1b4b;
+      border-radius: 5px;
+      border: 2px solid #0a0118;
+    }
 
-.logo{
-font-size:30px;
-font-weight:bold;
-color:#38bdf8;
-}
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a855f7;
+    }
 
-nav a{
-color:white;
-text-decoration:none;
-margin-left:25px;
-font-weight:500;
-}
+    body {
+      background: linear-gradient(135deg, #0a0118, #12032e, #1c0a3f);
+      color: white;
+      overflow-x: hidden;
+    }
 
-nav a:hover{
-color:#38bdf8;
-}
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s ease;
+    }
 
-.hero{
-min-height:100vh;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:120px 8%;
-gap:60px;
-}
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 3, 46, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.3s, padding 0.3s;
+    }
 
-.hero-text{
-flex:1;
-}
+    header.scrolled {
+      padding: 12px 8%;
+      background: rgba(10, 1, 24, 0.85);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
 
-.hero-text h3{
-font-size:28px;
-}
+    .logo {
+      font-size: 30px;
+      font-weight: 700;
+      color: #c084fc;
+      letter-spacing: 1px;
+      position: relative;
+    }
 
-.hero-text h1{
-font-size:70px;
-margin:10px 0;
-}
+    .logo::after {
+      content: '.';
+      color: #a855f7;
+    }
 
-.hero-text span{
-color:#38bdf8;
-}
+    nav {
+      display: flex;
+      align-items: center;
+    }
 
-.hero-text p{
-margin-top:20px;
-line-height:1.8;
-color:#d1d5db;
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
 
-.btn{
-display:inline-block;
-margin-top:30px;
-padding:15px 35px;
-background:#38bdf8;
-color:black;
-text-decoration:none;
-border-radius:40px;
-font-weight:bold;
-}
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #c084fc;
+      transition: width 0.3s ease;
+    }
 
-.hero-img{
-flex:1;
-display:flex;
-justify-content:center;
-}
+    nav a:hover {
+      color: #c084fc;
+    }
 
-.hero-img img{
-width:420px;
-height:420px;
-object-fit:cover;
-border-radius:50%;
-border:8px solid #38bdf8;
-box-shadow:0 0 40px #38bdf8;
-animation:float 4s ease-in-out infinite;
-}
+    nav a:hover::after {
+      width: 100%;
+    }
 
-@keyframes float{
-50%{transform:translateY(-15px);}
-}
+    /* Menu Button (Hamburger) */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 18px;
+      cursor: pointer;
+      z-index: 1010;
+    }
 
-section{
-padding:90px 8%;
-}
+    .menu-btn span {
+      width: 100%;
+      height: 2.5px;
+      background-color: white;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
 
-.title{
-text-align:center;
-font-size:45px;
-margin-bottom:50px;
-color:#38bdf8;
-}
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 120px 8%;
+      gap: 60px;
+    }
 
-.glass{
-background:rgba(255,255,255,.08);
-padding:35px;
-border-radius:20px;
-backdrop-filter:blur(10px);
-}
+    .hero-text {
+      flex: 1.2;
+    }
 
-.skills{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-}
+    .hero-text h3 {
+      font-size: 24px;
+      font-weight: 400;
+      color: #a855f7;
+    }
 
-.skill{
-background:#111827;
-padding:25px;
-border-radius:15px;
-transition:.4s;
-}
+    .hero-text h1 {
+      font-size: 64px;
+      margin: 10px 0;
+      font-weight: 700;
+      line-height: 1.1;
+    }
 
-.skill:hover{
-transform:translateY(-10px);
-}
+    .hero-text span {
+      color: #c084fc;
+      position: relative;
+      display: inline-block;
+    }
 
-.bar{
-height:10px;
-background:#333;
-border-radius:20px;
-margin-top:10px;
-overflow:hidden;
-}
+    .hero-text h2 {
+      font-size: 28px;
+      color: #cbd5e1;
+      font-weight: 600;
+      margin-top: 5px;
+    }
 
-.fill{
-height:100%;
-background:#38bdf8;
-}
+    .hero-text p {
+      margin-top: 20px;
+      line-height: 1.8;
+      color: #e2e8f0;
+      max-width: 550px;
+    }
 
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-}
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: white;
+      text-decoration: none;
+      border-radius: 40px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.project{
-background:#111827;
-padding:30px;
-border-radius:20px;
-transition:.4s;
-}
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
+    }
 
-.project:hover{
-transform:scale(1.04);
-}
+    .hero-img {
+      flex: 0.8;
+      display: flex;
+      justify-content: center;
+    }
 
-.timeline{
-border-left:3px solid #38bdf8;
-padding-left:30px;
-}
+    .hero-img img {
+      width: 380px;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 8px solid rgba(168, 85, 247, 0.2);
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
+      outline: 2px solid #a855f7;
+      animation: float 4s ease-in-out infinite;
+    }
 
-.item{
-margin-bottom:40px;
-}
+    @keyframes float {
 
-.contact{
-text-align:center;
-}
+      0%,
+      100% {
+        transform: translateY(0);
+      }
 
-footer{
-padding:30px;
-text-align:center;
-background:#020617;
-}
+      50% {
+        transform: translateY(-15px);
+      }
+    }
 
-</style>
+    section {
+      padding: 100px 8%;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 50px;
+      color: #c084fc;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #6366f1;
+      border-radius: 2px;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 40px;
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .skill {
+      background: rgba(15, 10, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      padding: 25px;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .skill:hover {
+      transform: translateY(-8px);
+      border-color: rgba(168, 85, 247, 0.3);
+      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.15);
+      background: rgba(15, 10, 30, 0.7);
+    }
+
+    .bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      margin-top: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      border-radius: 20px;
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .project {
+      background: rgba(15, 10, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      padding: 35px;
+      border-radius: 24px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #a855f7, #6366f1);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project:hover {
+      transform: scale(1.03);
+      border-color: rgba(168, 85, 247, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      background: rgba(15, 10, 30, 0.7);
+    }
+
+    .project:hover::before {
+      opacity: 1;
+    }
+
+    .project h3 {
+      font-size: 22px;
+      color: #c084fc;
+      margin-bottom: 12px;
+    }
+
+    .project p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      border-left: 3px solid rgba(168, 85, 247, 0.3);
+      padding-left: 35px;
+      position: relative;
+    }
+
+    .item {
+      margin-bottom: 45px;
+      position: relative;
+    }
+
+    .item::before {
+      content: '';
+      position: absolute;
+      left: -48.5px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #a855f7;
+      border: 3px solid #12032e;
+      box-shadow: 0 0 10px #a855f7;
+      transition: all 0.3s ease;
+    }
+
+    .item:hover::before {
+      background: #6366f1;
+      box-shadow: 0 0 15px #6366f1;
+    }
+
+    .item h3 {
+      font-size: 20px;
+      color: white;
+      margin-bottom: 5px;
+    }
+
+    .item p {
+      color: #cbd5e1;
+    }
+
+    .contact {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact h3 {
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: white;
+    }
+
+    .contact p {
+      margin: 15px 0;
+      color: #cbd5e1;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact p a {
+      color: #c084fc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact p a:hover {
+      color: #6366f1;
+    }
+
+    footer {
+      padding: 10px;
+      text-align: center;
+      background: #070112;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* Scroll Animation Reveal Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active,
+    .reveal-left.active,
+    .reveal-right.active {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    .delay-100 {
+      transition-delay: 100ms;
+    }
+
+    .delay-200 {
+      transition-delay: 200ms;
+    }
+
+    .delay-300 {
+      transition-delay: 300ms;
+    }
+
+    .delay-400 {
+      transition-delay: 400ms;
+    }
+
+    /* Responsive Design (Mobile / Tablet) */
+    @media (max-width: 1024px) {
+      header {
+        padding: 20px 5%;
+      }
+
+      .hero {
+        padding: 120px 5% 80px 5%;
+        gap: 40px;
+      }
+
+      .hero-text h1 {
+        font-size: 52px;
+      }
+
+      .hero-img img {
+        width: 380px;
+        height: 380px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 5%;
+      }
+
+      .menu-btn {
+        display: flex;
+      }
+
+      .menu-btn.active span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      .menu-btn.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-btn.active span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(10, 3, 26, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 35px;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1005;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav a {
+        margin-left: 0;
+        font-size: 20px;
+        font-weight: 600;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .hero {
+        flex-direction: column-reverse;
+        justify-content: center;
+        text-align: center;
+        padding: 130px 6% 60px 6%;
+        gap: 40px;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-text h1 {
+        font-size: 40px;
+      }
+
+      .hero-text h3 {
+        font-size: 20px;
+      }
+
+      .hero-text h2 {
+        font-size: 22px;
+      }
+
+      .hero-text p {
+        font-size: 15px;
+        margin-top: 15px;
+      }
+
+      .hero-img img {
+        width: 250px;
+        height: 250px;
+        border-width: 6px;
+      }
+
+      section {
+        padding: 70px 6%;
+      }
+
+      .title {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+
+      .glass {
+        padding: 25px;
+        border-radius: 16px;
+      }
+
+      .skills {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .timeline {
+        padding-left: 25px;
+      }
+
+      .item::before {
+        left: -37px;
+        width: 14px;
+        height: 14px;
+        border-width: 2.5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 34px;
+      }
+
+      .hero-img img {
+        width: 230px;
+        height: 230px;
+      }
+
+      .hero {
+        gap: 5px;
+      }
+
+      .btn {
+        padding: 12px 28px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">GC</div>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-<nav>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="#education">Education</a>
-<a href="#contact">Contact</a>
-</nav>
+  <header>
+    <div class="logo">GC</div>
 
-</header>
+    <nav id="navMenu">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-<section class="hero">
+    <div class="menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
 
-<div class="hero-text">
+  <section class="hero">
 
-<h3>Hello 👋</h3>
+    <div class="hero-text reveal-left">
 
-<h1>I'm <span>Gopika C</span></h1>
+      <h3>Hello 👋</h3>
 
-<h2>BCA Student</h2>
+      <h1>I'm <span>Gopika C</span></h1>
 
-<p>
-Passionate about Web Development, Artificial Intelligence,
-Programming and Creative UI Design.
-I enjoy learning new technologies and building impactful digital experiences.
-</p>
+      <h2>BCA Student</h2>
 
-<a href="#projects" class="btn">Explore My Work</a>
+      <p>
+        Passionate about Web Development, Artificial Intelligence,
+        Programming and Creative UI Design.
+        I enjoy learning new technologies and building impactful digital experiences.
+      </p>
 
-</div>
+      <a href="#projects" class="btn">Explore My Work</a>
 
-<div class="hero-img">
+    </div>
 
-<img src="profile.jpg" alt="Gopika C">
+    <div class="hero-img reveal-right">
 
-</div>
+      <img src="profile.jpg" alt="Gopika C">
 
-</section>
+    </div>
 
-<section id="about">
+  </section>
 
-<h2 class="title">About Me</h2>
+  <section id="about">
 
-<div class="glass">
+    <h2 class="title reveal">About Me</h2>
 
-<p>
+    <div class="glass reveal">
 
-Hello! I'm <b>Gopika C</b>, a BCA student passionate about technology,
-software development and modern web design. I enjoy solving problems,
-building creative projects and continuously improving my programming skills.
+      <p>
+        Hello! I'm <b>Gopika C</b>, a BCA student passionate about technology,
+        software development and modern web design. I enjoy solving problems,
+        building creative projects and continuously improving my programming skills.
+      </p>
 
-</p>
+    </div>
 
-</div>
+  </section>
 
-</section>
+  <section id="skills">
 
-<section id="skills">
+    <h2 class="title reveal">Skills</h2>
 
-<h2 class="title">Skills</h2>
+    <div class="skills">
 
-<div class="skills">
+      <div class="skill reveal delay-100">
+        HTML
+        <div class="bar">
+          <div class="fill" data-width="95%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-HTML
-<div class="bar"><div class="fill" style="width:95%"></div></div>
-</div>
+      <div class="skill reveal delay-200">
+        CSS
+        <div class="bar">
+          <div class="fill" data-width="90%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-CSS
-<div class="bar"><div class="fill" style="width:90%"></div></div>
-</div>
+      <div class="skill reveal delay-300">
+        JavaScript
+        <div class="bar">
+          <div class="fill" data-width="80%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-JavaScript
-<div class="bar"><div class="fill" style="width:80%"></div></div>
-</div>
+      <div class="skill reveal delay-100">
+        C Programming
+        <div class="bar">
+          <div class="fill" data-width="85%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-C Programming
-<div class="bar"><div class="fill" style="width:85%"></div></div>
-</div>
+      <div class="skill reveal delay-200">
+        Python
+        <div class="bar">
+          <div class="fill" data-width="75%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-Python
-<div class="bar"><div class="fill" style="width:75%"></div></div>
-</div>
+      <div class="skill reveal delay-300">
+        Java
+        <div class="bar">
+          <div class="fill" data-width="70%"></div>
+        </div>
+      </div>
 
-<div class="skill">
-Java
-<div class="bar"><div class="fill" style="width:70%"></div></div>
-</div>
+    </div>
 
-</div>
+  </section>
 
-</section>
+  <section id="projects">
 
-<section id="projects">
+    <h2 class="title reveal">Projects</h2>
 
-<h2 class="title">Projects</h2>
+    <div class="projects">
 
-<div class="projects">
+      <div class="project reveal delay-100">
+        <h3>Library Management System</h3>
+        <p>Developed using C Programming.</p>
+      </div>
 
-<div class="project">
-<h3>Library Management System</h3>
-<p>Developed using C Programming.</p>
-</div>
+      <div class="project reveal delay-200">
+        <h3>Portfolio Website</h3>
+        <p>Responsive website using HTML, CSS and JavaScript.</p>
+      </div>
 
-<div class="project">
-<h3>Portfolio Website</h3>
-<p>Responsive website using HTML, CSS and JavaScript.</p>
-</div>
+      <div class="project reveal delay-300">
+        <h3>Upcoming AI Projects</h3>
+        <p>Machine Learning and Full Stack Development.</p>
+      </div>
 
-<div class="project">
-<h3>Upcoming AI Projects</h3>
-<p>Machine Learning and Full Stack Development.</p>
-</div>
+    </div>
 
-</div>
+  </section>
 
-</section>
+  <section id="education">
 
-<section id="education">
+    <h2 class="title reveal">Education</h2>
 
-<h2 class="title">Education</h2>
+    <div class="glass timeline reveal">
 
-<div class="glass timeline">
+      <div class="item">
+        <h3>Bachelor of Computer Applications (BCA)</h3>
+        <p>GEMS Arts & Science College</p>
+      </div>
 
-<div class="item">
-<h3>Bachelor of Computer Applications (BCA)</h3>
-<p>GEMS Arts & Science College</p>
-</div>
+      <div class="item">
+        <h3>Higher Secondary</h3>
+        <p>Completed with Computer Science background.</p>
+      </div>
 
-<div class="item">
-<h3>Higher Secondary</h3>
-<p>Completed with Computer Science background.</p>
-</div>
+    </div>
 
-</div>
+  </section>
 
-</section>
+  <section id="contact">
 
-<section id="contact">
+    <h2 class="title reveal">Contact</h2>
 
-<h2 class="title">Contact</h2>
+    <div class="glass contact reveal">
 
-<div class="glass contact">
+      <h3>Gopika C</h3>
 
-<h3>Gopika C</h3>
+      <p>Email : <a href="mailto:gopikachalil2007@gmail.com">gopikachalil2007@gmail.com</a></p>
 
-<p>Email : gopikachalil2007@gmail.com</p>
+      <p>Phone : <a href="tel:+919544251210">+91 9544251210</a></p>
 
-<p>Phone : +91 9544251210</p>
+      <p>GitHub : <a href="https://github.com/gopikachalil2007-lab" target="_blank">github.com/gopikachalil2007-lab</a>
+      </p>
 
-<p>GitHub : github.com/gopika</p>
+      <p>LinkedIn : <a href="https://linkedin.com/in/gopikachalil2007" target="_blank">linkedin.com/in/gopika</a></p>
 
-<p>LinkedIn : linkedin.com/in/gopika</p>
+    </div>
 
-</div>
+  </section>
 
-</section>
+  <footer>
 
-<footer>
+    Designed & Developed by ❤️ Gopika C
 
-Designed by ❤️ Gopika C
+  </footer>
 
-</footer>
+  <script>
+    // Header Scroll Effect & Scroll Progress
+    const header = document.querySelector('header');
+    const scrollProgress = document.getElementById('scrollProgress');
+
+    window.addEventListener('scroll', () => {
+      // Header scrolled state
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Progress bar calculation
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        const scrolledPercentage = (window.scrollY / totalScroll) * 100;
+        scrollProgress.style.width = scrolledPercentage + '%';
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('nav a');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking links
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // IntersectionObserver for Scroll Animations
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .skill');
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+
+          // Trigger skill progress bar fill animation
+          const fill = entry.target.querySelector('.fill');
+          if (fill) {
+            const targetWidth = fill.getAttribute('data-width');
+            if (targetWidth) {
+              fill.style.width = targetWidth;
+            }
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => {
+      revealObserver.observe(el);
+    });
+  </script>
 
 </body>
+
 </html>
